@@ -47,7 +47,7 @@ async function cargarPlanes() {
 
     lista.innerHTML = `
         <div class="vacio">
-            Cargando nuestros planes... ♡
+            Cargando nuestros planes...
         </div>
     `;
 
@@ -68,7 +68,7 @@ async function cargarPlanes() {
 
         lista.innerHTML = `
             <div class="vacio">
-                No pudimos cargar nuestros planes :(
+                No pudimos cargar nuestros planes :c
             </div>
         `;
 
@@ -96,7 +96,7 @@ function renderizar() {
 
         lista.innerHTML = `
             <div class="vacio">
-                Todavía no tenemos planes agregados ♡
+                Todavía no tenemos planes agregados
                 <br>
                 ¿Cuál será el primero?
             </div>
