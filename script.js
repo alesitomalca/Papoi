@@ -1,24 +1,22 @@
-let planes = JSON.parse(localStorage.getItem("planesPareja")) || [
-    {
-        id: Date.now() + 1,
-        texto: "Ver el atardecer juntos",
-        completado: false,
-        fecha: null
-    },
-    {
-        id: Date.now() + 2,
-        texto: "Cocinar nuestra cena favorita",
-        completado: false,
-        fecha: null
-    },
-    {
-        id: Date.now() + 3,
-        texto: "Hacer un viaje juntos",
-        completado: false,
-        fecha: null
-    }
-];
+// ==========================================
+// CONFIGURACIÓN DE SUPABASE
+// ==========================================
 
+const SUPABASE_URL =
+    "https://nxpnkrrfdxremodbdjfy.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_pvZD0JOjhvWhHcLrZKsiqg_RZ7yLqm-";
+
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+
+// ==========================================
+// ELEMENTOS DE LA PÁGINA
+// ==========================================
 
 const lista = document.getElementById("listaPlanes");
 const input = document.getElementById("nuevoPlan");
@@ -37,25 +35,68 @@ const contador =
     document.getElementById("contadorPlanes");
 
 
-function guardar() {
+// Aquí guardamos temporalmente lo que viene de Supabase
+let planes = [];
 
-    localStorage.setItem(
-        "planesPareja",
-        JSON.stringify(planes)
-    );
+
+// ==========================================
+// CARGAR PLANES
+// ==========================================
+
+async function cargarPlanes() {
+
+    lista.innerHTML = `
+        <div class="vacio">
+            Cargando nuestros planes... ♡
+        </div>
+    `;
+
+    const { data, error } = await db
+        .from("planes")
+        .select("*")
+        .order("creado_en", {
+            ascending: false
+        });
+
+
+    if (error) {
+
+        console.error(
+            "Error cargando planes:",
+            error
+        );
+
+        lista.innerHTML = `
+            <div class="vacio">
+                No pudimos cargar nuestros planes :(
+            </div>
+        `;
+
+        return;
+    }
+
+
+    planes = data || [];
+
+    renderizar();
 
 }
 
+
+// ==========================================
+// MOSTRAR PLANES
+// ==========================================
 
 function renderizar() {
 
     lista.innerHTML = "";
 
+
     if (planes.length === 0) {
 
         lista.innerHTML = `
             <div class="vacio">
-                Todavía no tienen planes agregados ♡
+                Todavía no tenemos planes agregados ♡
                 <br>
                 ¿Cuál será el primero?
             </div>
@@ -69,9 +110,11 @@ function renderizar() {
         const elemento =
             document.createElement("div");
 
+
         elemento.className =
             "plan" +
             (plan.completado ? " completado" : "");
+
 
         elemento.innerHTML = `
 
@@ -91,7 +134,13 @@ function renderizar() {
                 </div>
 
                 <div class="fecha">
-                    Cumplido ${plan.fecha || ""} ♡
+                    ${
+                        plan.fecha
+                            ? "Cumplido " +
+                              formatearFecha(plan.fecha) +
+                              " ♡"
+                            : ""
+                    }
                 </div>
 
             </div>
@@ -107,6 +156,7 @@ function renderizar() {
                     ✎
                 </button>
 
+
                 <button
                     class="btn-accion btn-eliminar"
                     onclick="eliminar(${plan.id})"
@@ -119,6 +169,7 @@ function renderizar() {
 
         `;
 
+
         lista.appendChild(elemento);
 
     });
@@ -129,83 +180,135 @@ function renderizar() {
 }
 
 
-function agregar() {
+// ==========================================
+// AGREGAR PLAN
+// ==========================================
 
-    const texto = input.value.trim();
+async function agregar() {
+
+    const texto =
+        input.value.trim();
+
 
     if (!texto) {
         return;
     }
 
 
-    planes.unshift({
+    btnAgregar.disabled = true;
+    btnAgregar.textContent = "Agregando...";
 
-        id: Date.now(),
 
-        texto: texto,
+    const { error } = await db
+        .from("planes")
+        .insert({
 
-        completado: false,
+            texto: texto,
 
-        fecha: null
+            completado: false
 
-    });
+        });
+
+
+    btnAgregar.disabled = false;
+    btnAgregar.textContent = "+ Agregar plan";
+
+
+    if (error) {
+
+        console.error(
+            "Error agregando plan:",
+            error
+        );
+
+        alert(
+            "No se pudo agregar el plan."
+        );
+
+        return;
+    }
 
 
     input.value = "";
 
-    guardar();
 
-    renderizar();
+    await cargarPlanes();
 
 }
 
 
-function completar(id) {
+// ==========================================
+// COMPLETAR / DESMARCAR
+// ==========================================
+
+async function completar(id) {
 
     const plan =
-        planes.find(p => p.id === id);
+        planes.find(
+            p => p.id === id
+        );
 
 
-    if (!plan) return;
-
-
-    plan.completado =
-        !plan.completado;
-
-
-    if (plan.completado) {
-
-        plan.fecha =
-            new Date().toLocaleDateString(
-                "es-PE",
-                {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric"
-                }
-            );
-
-    } else {
-
-        plan.fecha = null;
-
+    if (!plan) {
+        return;
     }
 
 
-    guardar();
+    const nuevoEstado =
+        !plan.completado;
 
-    renderizar();
+
+    const { error } = await db
+        .from("planes")
+        .update({
+
+            completado:
+                nuevoEstado,
+
+            fecha:
+                nuevoEstado
+                    ? new Date().toISOString()
+                    : null
+
+        })
+        .eq("id", id);
+
+
+    if (error) {
+
+        console.error(
+            "Error actualizando:",
+            error
+        );
+
+        alert(
+            "No se pudo actualizar el plan."
+        );
+
+        return;
+    }
+
+
+    await cargarPlanes();
 
 }
 
 
-function editar(id) {
+// ==========================================
+// EDITAR
+// ==========================================
+
+async function editar(id) {
 
     const plan =
-        planes.find(p => p.id === id);
+        planes.find(
+            p => p.id === id
+        );
 
 
-    if (!plan) return;
+    if (!plan) {
+        return;
+    }
 
 
     const nuevoTexto =
@@ -216,45 +319,90 @@ function editar(id) {
 
 
     if (
-        nuevoTexto !== null &&
-        nuevoTexto.trim() !== ""
+        nuevoTexto === null ||
+        nuevoTexto.trim() === ""
     ) {
-
-        plan.texto =
-            nuevoTexto.trim();
-
-        guardar();
-
-        renderizar();
-
+        return;
     }
+
+
+    const { error } = await db
+        .from("planes")
+        .update({
+
+            texto:
+                nuevoTexto.trim()
+
+        })
+        .eq("id", id);
+
+
+    if (error) {
+
+        console.error(
+            "Error editando:",
+            error
+        );
+
+        alert(
+            "No se pudo editar el plan."
+        );
+
+        return;
+    }
+
+
+    await cargarPlanes();
 
 }
 
 
-function eliminar(id) {
+// ==========================================
+// ELIMINAR
+// ==========================================
+
+async function eliminar(id) {
 
     const confirmar =
         confirm(
-            "¿Eliminar este plan de la lista?"
+            "¿Eliminar este plan de nuestra lista?"
         );
 
 
-    if (!confirmar) return;
+    if (!confirmar) {
+        return;
+    }
 
 
-    planes =
-        planes.filter(
-            p => p.id !== id
+    const { error } = await db
+        .from("planes")
+        .delete()
+        .eq("id", id);
+
+
+    if (error) {
+
+        console.error(
+            "Error eliminando:",
+            error
         );
 
+        alert(
+            "No se pudo eliminar el plan."
+        );
 
-    guardar();
+        return;
+    }
 
-    renderizar();
+
+    await cargarPlanes();
 
 }
 
+
+// ==========================================
+// PROGRESO
+// ==========================================
 
 function actualizarProgreso() {
 
@@ -268,17 +416,12 @@ function actualizarProgreso() {
         ).length;
 
 
-    let porcentajeNumero = 0;
-
-
-    if (total > 0) {
-
-        porcentajeNumero =
-            Math.round(
+    const numeroPorcentaje =
+        total === 0
+            ? 0
+            : Math.round(
                 (completados / total) * 100
             );
-
-    }
 
 
     textoProgreso.textContent =
@@ -286,11 +429,11 @@ function actualizarProgreso() {
 
 
     porcentaje.textContent =
-        `${porcentajeNumero}%`;
+        `${numeroPorcentaje}%`;
 
 
     barra.style.width =
-        `${porcentajeNumero}%`;
+        `${numeroPorcentaje}%`;
 
 
     contador.textContent =
@@ -300,6 +443,29 @@ function actualizarProgreso() {
 
 }
 
+
+// ==========================================
+// FORMATEAR FECHA
+// ==========================================
+
+function formatearFecha(fecha) {
+
+    return new Date(fecha)
+        .toLocaleDateString(
+            "es-PE",
+            {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+}
+
+
+// ==========================================
+// SEGURIDAD PARA EL TEXTO
+// ==========================================
 
 function escaparHTML(texto) {
 
@@ -312,6 +478,10 @@ function escaparHTML(texto) {
 
 }
 
+
+// ==========================================
+// BOTONES
+// ==========================================
 
 btnAgregar.addEventListener(
     "click",
@@ -331,4 +501,34 @@ input.addEventListener(
 );
 
 
-renderizar();
+// ==========================================
+// TIEMPO REAL
+// ==========================================
+
+db
+    .channel("planes-compartidos")
+
+    .on(
+        "postgres_changes",
+
+        {
+            event: "*",
+            schema: "public",
+            table: "planes"
+        },
+
+        () => {
+
+            cargarPlanes();
+
+        }
+    )
+
+    .subscribe();
+
+
+// ==========================================
+// INICIAR PAPOI ♡
+// ==========================================
+
+cargarPlanes();
