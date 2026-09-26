@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nuestros Planes ♡</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="contenedor">
+
+        <header class="encabezado">
+            <div class="corazon">♡</div>
+
+            <p class="subtitulo">NUESTRO PEQUEÑO RINCÓN</p>
+
+            <h1>Alessandro <span>&</span> Rocío</h1>
+
+            <p class="descripcion">
+                Todas esas cosas que queremos vivir juntos,
+                guardadas en un solo lugar.
+            </p>
+        </header>
+
+
+        <!-- PROGRESO -->
+
+        <section class="progreso-card">
+
+            <div class="progreso-info">
+                <div>
+                    <p class="label">NUESTRO PROGRESO</p>
+                    <h2 id="textoProgreso">0 de 0 planes cumplidos</h2>
+                </div>
+
+                <div id="porcentaje" class="porcentaje">
+                    0%
+                </div>
+            </div>
+
+            <div class="barra">
+                <div id="barraProgreso" class="barra-completada"></div>
+            </div>
+
+        </section>
+
+
+        <!-- AGREGAR PLAN -->
+
+        <section class="agregar-card">
+
+            <h2>¿Qué hacemos después? ♡</h2>
+
+            <div class="formulario">
+
+                <input
+                    type="text"
+                    id="nuevoPlan"
+                    placeholder="Ej. Ver el atardecer juntos..."
+                    maxlength="100"
+                >
+
+                <button id="btnAgregar">
+                    + Agregar plan
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- LISTA -->
+
+        <section class="lista-section">
+
+            <div class="titulo-lista">
+                <h2>Nuestra lista</h2>
+
+                <span id="contadorPlanes">
+                    0 planes
+                </span>
+            </div>
+
+            <div id="listaPlanes" class="lista-planes">
+
+                <!-- Los planes aparecen aquí -->
+
+            </div>
+
+        </section>
+
+
+        <footer>
+            Hecho para nosotros ♡
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
