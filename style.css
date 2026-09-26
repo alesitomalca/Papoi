@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
 
 * {
     margin: 0;
@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Manrope', sans-serif;
 
     background:
         radial-gradient(circle at top left, #e8eef8, transparent 35%),
@@ -69,7 +69,7 @@ body {
 }
 
 .encabezado h1 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Manrope', serif;
 
     font-size: 43px;
 
@@ -146,7 +146,7 @@ body {
 }
 
 .porcentaje {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Manrope', serif;
 
     font-size: 28px;
 
@@ -185,10 +185,10 @@ body {
 /* AGREGAR */
 
 .agregar-card h2 {
-    font-family: 'Playfair Display', serif;
-
-    font-size: 20px;
-
+    font-family: 'Manrope', sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
     margin-bottom: 17px;
 }
 
@@ -272,9 +272,10 @@ body {
 }
 
 .titulo-lista h2 {
-    font-family: 'Playfair Display', serif;
-
-    font-size: 25px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 23px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
 }
 
 .titulo-lista span {
@@ -441,16 +442,10 @@ body {
 
 footer {
     text-align: center;
-
     margin-top: 55px;
-
-    font-family: 'Playfair Display', serif;
-
-    font-style: italic;
-
+    font-family: 'Manrope', sans-serif;
     color: #a2a7af;
-
-    font-size: 13px;
+    font-size: 12px;
 }
 
 
