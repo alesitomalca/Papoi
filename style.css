@@ -1,0 +1,484 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+
+    background:
+        radial-gradient(circle at top left, #e8eef8, transparent 35%),
+        radial-gradient(circle at bottom right, #e8e4f0, transparent 35%),
+        #f6f7f9;
+
+    color: #30343b;
+
+    min-height: 100vh;
+}
+
+.contenedor {
+    width: 90%;
+    max-width: 760px;
+
+    margin: auto;
+
+    padding: 60px 0 30px;
+}
+
+
+/* HEADER */
+
+.encabezado {
+    text-align: center;
+
+    margin-bottom: 45px;
+}
+
+.corazon {
+    width: 55px;
+    height: 55px;
+
+    margin: auto;
+    margin-bottom: 20px;
+
+    border: 1px solid #9aa8bd;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 28px;
+
+    color: #68778e;
+
+    background: rgba(255,255,255,.5);
+}
+
+.subtitulo {
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    color: #8a93a1;
+
+    margin-bottom: 12px;
+}
+
+.encabezado h1 {
+    font-family: 'Playfair Display', serif;
+
+    font-size: 43px;
+
+    font-weight: 600;
+
+    color: #333943;
+}
+
+.encabezado h1 span {
+    font-style: italic;
+
+    color: #718096;
+
+    margin: 0 5px;
+}
+
+.descripcion {
+    margin: 15px auto 0;
+
+    max-width: 500px;
+
+    color: #7a818c;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* TARJETAS */
+
+.progreso-card,
+.agregar-card {
+    background: rgba(255,255,255,.82);
+
+    border: 1px solid #e3e6eb;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 10px 35px rgba(40,50,70,.05);
+}
+
+
+/* PROGRESO */
+
+.progreso-info {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.label {
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    color: #9aa0aa;
+
+    margin-bottom: 6px;
+}
+
+.progreso-info h2 {
+    font-size: 17px;
+
+    font-weight: 600;
+}
+
+.porcentaje {
+    font-family: 'Playfair Display', serif;
+
+    font-size: 28px;
+
+    color: #68778e;
+}
+
+.barra {
+    width: 100%;
+    height: 7px;
+
+    background: #eceef2;
+
+    border-radius: 50px;
+
+    margin-top: 20px;
+
+    overflow: hidden;
+}
+
+.barra-completada {
+    width: 0%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        #7f8fa6,
+        #a5b1c2
+    );
+
+    border-radius: 50px;
+
+    transition: width .4s ease;
+}
+
+
+/* AGREGAR */
+
+.agregar-card h2 {
+    font-family: 'Playfair Display', serif;
+
+    font-size: 20px;
+
+    margin-bottom: 17px;
+}
+
+.formulario {
+    display: flex;
+
+    gap: 10px;
+}
+
+.formulario input {
+    flex: 1;
+
+    padding: 13px 15px;
+
+    border-radius: 10px;
+
+    border: 1px solid #dfe2e7;
+
+    background: #fafafa;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    color: #3e434b;
+
+    transition: .2s;
+}
+
+.formulario input:focus {
+    border-color: #9aa8bd;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 3px rgba(154,168,189,.12);
+}
+
+.formulario button {
+    border: none;
+
+    padding: 0 20px;
+
+    border-radius: 10px;
+
+    background: #505b6d;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.formulario button:hover {
+    background: #3f4857;
+
+    transform: translateY(-1px);
+}
+
+
+/* LISTA */
+
+.lista-section {
+    margin-top: 40px;
+}
+
+.titulo-lista {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.titulo-lista h2 {
+    font-family: 'Playfair Display', serif;
+
+    font-size: 25px;
+}
+
+.titulo-lista span {
+    color: #9299a3;
+
+    font-size: 13px;
+}
+
+
+/* PLAN */
+
+.plan {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    background: rgba(255,255,255,.75);
+
+    border: 1px solid #e5e7eb;
+
+    padding: 18px;
+
+    border-radius: 14px;
+
+    margin-bottom: 10px;
+
+    transition: .25s;
+}
+
+.plan:hover {
+    background: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(40,50,70,.06);
+}
+
+.check {
+    width: 27px;
+    height: 27px;
+
+    min-width: 27px;
+
+    border-radius: 50%;
+
+    border: 1px solid #aab2be;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    color: white;
+
+    font-size: 14px;
+
+    transition: .2s;
+}
+
+.check:hover {
+    border-color: #657184;
+
+    background: #f0f2f5;
+}
+
+.plan-contenido {
+    flex: 1;
+}
+
+.plan-texto {
+    font-size: 14px;
+
+    font-weight: 500;
+}
+
+.fecha {
+    display: none;
+
+    margin-top: 4px;
+
+    color: #9ba1aa;
+
+    font-size: 11px;
+}
+
+
+/* COMPLETADO */
+
+.plan.completado {
+    opacity: .65;
+}
+
+.plan.completado .check {
+    background: #657184;
+
+    border-color: #657184;
+}
+
+.plan.completado .plan-texto {
+    text-decoration: line-through;
+
+    color: #8f959e;
+}
+
+.plan.completado .fecha {
+    display: block;
+}
+
+
+/* BOTONES */
+
+.acciones {
+    display: flex;
+
+    gap: 5px;
+}
+
+.btn-accion {
+    width: 32px;
+    height: 32px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    color: #9299a3;
+
+    transition: .2s;
+}
+
+.btn-accion:hover {
+    background: #f0f1f3;
+
+    color: #4c5564;
+}
+
+.btn-eliminar:hover {
+    background: #f8eeee;
+
+    color: #a85b5b;
+}
+
+
+/* VACÍO */
+
+.vacio {
+    text-align: center;
+
+    padding: 50px 20px;
+
+    color: #9ba1aa;
+
+    font-size: 14px;
+}
+
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+
+    margin-top: 55px;
+
+    font-family: 'Playfair Display', serif;
+
+    font-style: italic;
+
+    color: #a2a7af;
+
+    font-size: 13px;
+}
+
+
+/* CELULAR */
+
+@media (max-width: 600px) {
+
+    .contenedor {
+        width: 92%;
+
+        padding-top: 35px;
+    }
+
+    .encabezado h1 {
+        font-size: 34px;
+    }
+
+    .formulario {
+        flex-direction: column;
+    }
+
+    .formulario button {
+        padding: 13px;
+    }
+
+    .progreso-card,
+    .agregar-card {
+        padding: 20px;
+    }
+
+}
