@@ -97,8 +97,6 @@ function renderizar() {
         lista.innerHTML = `
             <div class="vacio">
                 Todavía no tenemos planes agregados
-                <br>
-                ¿Cuál será el primero?
             </div>
         `;
 
