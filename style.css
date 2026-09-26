@@ -477,3 +477,40 @@ footer {
     }
 
 }
+
+
+/* TIPOGRAFÍA DEFINITIVA */
+
+.encabezado h1,
+.encabezado h1 span,
+.progreso-info h2,
+.porcentaje,
+.agregar-card h2,
+.titulo-lista h2,
+footer {
+    font-family: 'Manrope', sans-serif;
+}
+
+.encabezado h1 {
+    font-weight: 600;
+    letter-spacing: -1.5px;
+}
+
+.encabezado h1 span {
+    font-weight: 400;
+    font-style: normal;
+}
+
+.porcentaje {
+    font-weight: 500;
+}
+
+.agregar-card h2,
+.titulo-lista h2 {
+    font-weight: 600;
+}
+
+footer {
+    font-style: normal;
+    font-weight: 400;
+}
