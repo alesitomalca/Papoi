@@ -391,37 +391,42 @@ body {
 
 .acciones {
     display: flex;
-
-    gap: 5px;
+    align-items: center;
+    gap: 8px;
 }
 
 .btn-accion {
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
 
     border: none;
+    border-radius: 10px;
 
-    border-radius: 8px;
-
-    background: transparent;
-
+    background: #f1f3f5;
     cursor: pointer;
 
-    color: #9299a3;
+    color: #667085;
+
+    font-size: 21px;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     transition: .2s;
 }
 
 .btn-accion:hover {
-    background: #f0f1f3;
-
-    color: #4c5564;
+    background: #e5e8ec;
+    color: #343b46;
+    transform: translateY(-1px);
 }
 
 .btn-eliminar:hover {
-    background: #f8eeee;
-
-    color: #a85b5b;
+    background: #f7e5e5;
+    color: #b34f4f;
 }
 
 
